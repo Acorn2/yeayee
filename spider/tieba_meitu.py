@@ -119,15 +119,13 @@ class BaiduTiebaPhoto:
     def image_Stitching(self, images, horizontal_num, vertical_num):
         '''横向纵向拼接
         :param images: 图片地址
+        :param horizontal_num: 行数
+        :param vertical_num: 列数
         :return: 木有返回值
         '''
-        #     sums = len(images)
-        #     horizontal_num =6       #拼接的图片每行几张图片
-        #     vertical_num = sums/horizontal_num      #拼接的图片几列
         target = Image.new('RGB', (TARGET_WIDTH * horizontal_num, UNIT_SIZE * vertical_num))
         for i in range(vertical_num):
             imagefile = []
-            j = 0
             for j in range(horizontal_num):
                 img = Image.open(self.new_fpath + images[i * horizontal_num + j])
                 imagefile.append(img)
@@ -155,9 +153,9 @@ class BaiduTiebaPhoto:
 
 
     def pilDeal(self):
-        # print("图片大小修订中.......")
-        # self.ResizeImage()
-        # print("图片大小修订完成")
+        print("图片大小修订中.......")
+        self.ResizeImage()
+        print("图片大小修订完成")
 
         print("图片拼接中.....")
         print("请输入拼接要求，几行几列")
@@ -165,7 +163,6 @@ class BaiduTiebaPhoto:
         vertical_num = int(input("再输入列数：\n"))
         images = self.get_Images()
 
-        print(images)
         sums = vertical_num * horizontal_num
         if (sums > len(images)):
             print("输入的行数、列数过大，该文件下没有" + str(sums) + "张图片")
